@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreEventsRequest;
 use App\Http\Controllers\Controller;
 
 /**
@@ -15,11 +15,23 @@ class EventsController extends Controller
     /**
      * Stores the request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\StoreEventsRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreEventsRequest $request)
     {
-        //
+        $data = $request->validated();
+        // Could be done via a repository
+        foreach ($data as $item) {
+            Event::create([
+                'name' => $item['name'],
+                'schedule_date' => $item['date']
+            ]);
+        }
+        
+        return response()
+            ->json(['success' => true])
+            ->setStatusCode(201)
+            ;
     }
 }
