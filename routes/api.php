@@ -12,4 +12,5 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('events', 'EventsController@index');
 Route::post('events', 'EventsController@store');

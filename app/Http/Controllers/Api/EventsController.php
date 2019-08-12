@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Event;
+use App\Http\Resources\EventResource;
 use App\Http\Requests\StoreEventsRequest;
 use App\Http\Controllers\Controller;
 
 /**
- * We will be assuming here that we only care about storing all event requests
- * and no need for returning current list nor updated list.
+ * 
  */
 class EventsController extends Controller
 {
+    public function index()
+    {
+        return EventResource::collection(Event::oldest('schedule_date')->get());
+    }
+
     /**
-     * Stores the request.
+     * Stores the request. Everytime new events are added, previous ones must be deleted.
      *
      * @param  App\Http\Requests\StoreEventsRequest $request
      * @return \Illuminate\Http\Response
@@ -21,6 +26,8 @@ class EventsController extends Controller
     public function store(StoreEventsRequest $request)
     {
         $data = $request->validated();
+        // Entire steps can be put inside a DB transaction.
+        Event::truncate();
         // Could be done via a repository
         foreach ($data as $item) {
             Event::create([
