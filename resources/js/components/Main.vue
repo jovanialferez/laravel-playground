@@ -1,18 +1,27 @@
 <template>
-    <div class="row">
-        <div class="col-3"></div>
-        <div class="col-9">
-            <events :events="events"></events>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col"><h1>Calendar</h1></div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <event-form></event-form>
+            </div>
+            <div class="col-9">
+                <events :events="events"></events>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Events from './Events';
+    import Events from './Events'
+    import EventForm from './EventForm'
 
     export default {
         components: {
-            'events': Events
+            'events': Events,
+            'event-form': EventForm,
         },
         props: [],
         data() {

@@ -12,7 +12,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body>
-        <div id="app" class="container">
+        <div id="app">
             <main-app></main-app>
         </div>
     </body>
