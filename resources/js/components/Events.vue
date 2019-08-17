@@ -24,6 +24,8 @@
         }),
         watch: {
             events(data) {
+                if (data.length === 0) return
+                
                 this.calendarDates = [];
                 // As events from api are expected to be ordered oldest schedule first,
                 // lets take the first event as basis of starting date for the calendar

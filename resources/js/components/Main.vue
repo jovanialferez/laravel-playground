@@ -5,7 +5,7 @@
         </div>
         <div class="row">
             <div class="col-3">
-                <event-form></event-form>
+                <event-form @submit-form="handleOnEventFormSubmit"></event-form>
             </div>
             <div class="col-9">
                 <events :events="events"></events>
@@ -37,6 +37,20 @@
                 try {
                     let response = await axios.get('/api/events')
                     this.events = response.data.data
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            async handleOnEventFormSubmit(data) {
+                let postData = []
+                for (let date of data.dates) {
+                    postData.push({ name: data.name, date: date.format('YYYY-MM-DD')})
+                }
+                try {
+                    await axios.post('/api/events', postData)
+                    this.fetchEvents() // or we could just update our data.events for the child component
+
+                    alert('events saved!') // -- very old school! :D
                 } catch (error) {
                     console.log(error)
                 }
