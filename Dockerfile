@@ -27,4 +27,4 @@ RUN chown -R www-data:www-data /var/www/html/storage \
 
 COPY docker.env /var/www/html/.env
 
-VOLUME ["/var/www/html/storage", "/var/www/html/bootstrap/cache"]
+RUN php artisan cache:clear
