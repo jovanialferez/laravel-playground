@@ -31,6 +31,8 @@ COPY . /var/www/html
 COPY --from=node /usr/src/app/public/css /var/www/html/public/css
 COPY --from=node /usr/src/app/public/js /var/www/html/public/js
 
+COPY docker_startup.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/docker_startup.sh
 WORKDIR /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
@@ -38,3 +40,5 @@ RUN chown -R www-data:www-data /var/www/html/storage \
     /var/www/html/bootstrap/cache
 
 VOLUME ["/var/www/html/storage", "/var/www/html/bootstrap/cache"]
+
+CMD [ "docker_startup.sh" ]
