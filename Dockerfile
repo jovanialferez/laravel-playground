@@ -28,6 +28,7 @@ RUN a2enmod rewrite
 
 COPY --from=laravelsail/php74-composer /usr/bin/composer /usr/bin/composer
 COPY . /var/www/html
+COPY .env.staging .env
 COPY --from=node /usr/src/app/public/css /var/www/html/public/css
 COPY --from=node /usr/src/app/public/js /var/www/html/public/js
 
